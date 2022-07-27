@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import { useEffect, useState } from "react";
 import './App.css';
 
 function App() {
+  const [news, setNews] = useState();
+
+  useEffect(() => {
+    fetch("https://hn.algolia.com/api/v1/search_by_date?tags=story")
+      .then((res) => {
+
+        return res.json();
+      })
+      .then((data) => setNews(data))
+      .catch((err) => console.log(err));
+  }, []);
+  
+  //console.log("hi",news)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {news?.hits.map((item) => (
+         <p key="{item.title}">{item.title!=null &&item.title}</p>
+      ))}
+          
+      
+
     </div>
   );
 }
