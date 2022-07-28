@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Header from "./Components/Header";
 import './App.css';
 
 function App() {
@@ -16,7 +17,10 @@ function App() {
   
   //console.log("hi",news)
   return (
-    <div className="App">
+    <>
+     <Header />
+     
+     <div className="App">
       {news?.hits.map((item) => (
          <p key="{item.title}">{item.title!=null &&item.title}</p>
       ))}
@@ -24,6 +28,8 @@ function App() {
       
 
     </div>
+    </>
+   
   );
 }
 
