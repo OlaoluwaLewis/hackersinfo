@@ -5,6 +5,13 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ListGroup from 'react-bootstrap/ListGroup';
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
+};
 
 function Header() {
   const [data, setData] = useState({ hits: [] });
@@ -13,6 +20,9 @@ function Header() {
     '',
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [news, setNews] = useState();
+  let [loading, setLoading] = useState(true);
+  let [color, setColor] = useState("#000000");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,8 +71,13 @@ function Header() {
       </Navbar >
 
       <Container>
+     
         {isLoading ? (
-          <div>Loading ...</div>
+          <div>Loading ..
+              <button onClick={() => setLoading(!loading)}>Toggle Loader</button>
+              <input value={""} onChange={(input) => setColor(input.target.value)} placeholder="Welcome" />
+              <ClimbingBoxLoader color={color} loading={loading} cssOverride={override} size={15} />
+            .</div>
         ) : (
           <ListGroup className="list-group-numbered mb-4">
             {data.hits.map(item => (
